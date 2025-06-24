@@ -27,15 +27,21 @@
                     "type": "string",
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
-                    "fa_icon": "fas fa-folder-open"
+                    "fa_icon": "fas fa-folder-open",
+                    "hidden": true,
+                    "default": "users/m/b/mbsr/scratch/seqera_outdir"
                 },
                 "dbinfo": {
                     "type": "string",
-                    "description": "Access information for the database"
+                    "description": "Access information for the database",
+                    "default": "/users/m/b/mbsr/webdbcert/dbinfo.yaml",
+                    "hidden": true
                 },
                 "web_ca": {
                     "type": "string",
-                    "description": "Certificate for seqera platform use"
+                    "description": "Certificate for seqera platform use",
+                    "default": "/users/m/b/mbsr/webdbcert/webdb-cacert.pem",
+                    "hidden": true
                 },
                 "email": {
                     "type": "string",
