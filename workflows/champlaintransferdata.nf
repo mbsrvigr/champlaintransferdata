@@ -22,12 +22,13 @@ workflow CHAMPLAINTRANSFERDATA {
     main:
 
     ch_versions = Channel.empty()
-
+    ch_samplesheet.view()
+    
     dbinfo = file(params.dbinfo)
     web_ca = file(params.web_ca)
     ch_source = TRANSFER_DATA(ch_samplesheet,dbinfo,web_ca)
-    UPDATEDB(ch_source,dbinfo,web_ca)
-    
+    UPDATEDB(ch_source,params.input,dbinfo,web_ca)
+
     //
     // Collate and save software versions
     //
