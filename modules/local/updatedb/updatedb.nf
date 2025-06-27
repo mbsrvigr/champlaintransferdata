@@ -4,6 +4,7 @@ process UPDATEDB {
     
     input:
     tuple val(meta), val(info)
+    val samplesheet
     path "dbinfo.yaml"
     path "webdb-cacert.pem"
     
@@ -12,11 +13,13 @@ process UPDATEDB {
 
     script:
     def source_directory=meta.id
+    def target_directory=info[0]
     def pi=info[1]
+    
     """
     source ~/initConda.sh
     mamba activate champlain_env
-    updateDB.py ${source_directory} ${pi} True "writer" ""
+    updateDB.py ${source_directory} ${target_directory} ${samplesheet} ${pi} True "writer" ""
     """
 }
 
