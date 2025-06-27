@@ -116,13 +116,13 @@ def net_connect():
     return (vacc_un, vacc_pw)
 
 
-def source_meta(file_data: Transfer, file_in: str):
+def source_meta(file_data: Transfer, file_in: str, samplesheet: str):
     """
     Record metadata of the source directory.
     """
     file_data.date = str(datetime.datetime.now())[0:19]
     file_data.size_in_bytes = compute_directory_size(file_in)
-    file_data.file_name = file_in
+    file_data.file_name = samplesheet
     print(file_data.size_in_bytes)
     return file_data
 
@@ -181,11 +181,12 @@ def source_del(check: bool, path_in: str, disp: bool):
 def updateDB_and_delete (
     path_in: str,
     path_out: str,
+    samplesheet: str,
     disp: bool,
     file_trans: Transfer,
     log_file: sessionmaker,
 ):
-    file_trans = source_meta(file_trans, path_in)
+    file_trans = source_meta(file_trans, path_in, samplesheet)
     
     source_del(True, path_in, True)
 
@@ -216,6 +217,15 @@ def main():
     parser.add_argument(
         "source_directory", type=str, help="Path to the source directory. (str: any)"
     )
+    
+    parser.add_argument(
+        "target_directory", type=str, help="Path to the target directory. (str: any)"
+    )
+
+    parser.add_argument(
+        "samplesheet_name", type=str, help="Name of the samplesheet. (str: any)"
+    )
+
     parser.add_argument(
         "pi_netid", type=str, help="netid of the principal investigator. (str: any)"
     )
@@ -233,6 +243,8 @@ def main():
 
     args = parser.parse_args()
     d_in = args.source_directory.rstrip("/")
+    d_out = args.target_directory.rstrip("/")
+    d_samplesheet = args.samplesheet_name
     d_pid = args.pi_netid
     d_remark = args.db_remark
 
@@ -249,14 +261,15 @@ def main():
     
     d_data = Transfer(
         source_directory=f"{d_in}",
-        target_directory=f"{d_in}",
+        target_directory=f"{d_out}",
+        file_name=f"{d_samplesheet}",
         pi=d_pid,
         md5_check=0,
         remarks=d_remark
     )
 
     updateDB_and_delete (
-        path_in=d_in, path_out=d_in, disp=d_disp, file_trans=d_data, log_file=db_log
+        path_in=d_in, path_out=d_in, samplesheet=d_samplesheet, disp=d_disp, file_trans=d_data, log_file=db_log
     )
 
     print("DONE!")
