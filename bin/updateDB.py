@@ -122,7 +122,7 @@ def source_meta(file_data: Transfer, file_in: str, samplesheet: str):
     """
     file_data.date = str(datetime.datetime.now())[0:19]
     file_data.size_in_bytes = compute_directory_size(file_in)
-    file_data.file_name = samplesheet
+    file_data.file_name = os.path.basename(samplesheet)
     print(file_data.size_in_bytes)
     return file_data
 
