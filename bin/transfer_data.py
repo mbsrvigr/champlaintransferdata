@@ -208,7 +208,7 @@ def source_del(check: bool, path_in: str, disp: bool):
     Delete the source file if check is True.
     """
     if check:
-        subprocess.check_output(f"rm -r {path_in}", stderr=subprocess.STDOUT, shell=True)
+#        subprocess.check_output(f"rm -r {path_in}", stderr=subprocess.STDOUT, shell=True)
         if disp:
             print("SOURCE deleted")
             print(path_in)
