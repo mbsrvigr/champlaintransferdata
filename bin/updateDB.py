@@ -188,7 +188,7 @@ def updateDB_and_delete (
 ):
     file_trans = source_meta(file_trans, path_in, samplesheet)
     
-    source_del(True, path_in, True)
+#    source_del(True, path_in, True)
 
     record_trans(log_file, file_trans)
 
