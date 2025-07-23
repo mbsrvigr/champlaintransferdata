@@ -1,7 +1,7 @@
 process TRANSFER_DATA {
     label 'process_long'
     maxRetries 0
-
+    maxForks 1
 //    container 'docker://rbarrant/champlain:0.1'
     
     input:
